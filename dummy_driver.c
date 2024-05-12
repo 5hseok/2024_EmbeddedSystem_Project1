@@ -107,7 +107,7 @@ int Destack(ST_t *s, char *value)
 	if(s == NULL) return -1;
 	if(s->head < 0) return -2;
 
-	*value = s->item[s->head--];
+	*value = s->item[s->tail--];
 	return 0;
 }
 
@@ -180,11 +180,18 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 		return -ENOMEM;
 
 	// Implementing using IsEmpty, copy_to_user, and Destack functions
-	if(IsEmpty(&stack_buffer)) return -2;
+	if(IsEmpty(&stack_buffer)) {
+		printk("Stack is Empty");
+		return -2;
+	}
 
 	for(i=0;i<length;i++){
-		Destack(&stack_buffer, &device_buf);	
-		printk("Read data sequence [%d] : %c", i, device_buf[i]);
+		if(Destack(&stack_buffer, &data)) { // Destack 함수가 data에 값을 저장하고 성공하면 0을 반환하도록 가정
+			printk("Read data sequence [%d] : %c", i, data);
+			device_buf[i] = data; // 여기서 data 값을 device_buf[i]에 저장
+		} else {
+			break;
+		}
 	} 
 
 	if (copy_to_user(buffer, device_buf, length))	return -1;
