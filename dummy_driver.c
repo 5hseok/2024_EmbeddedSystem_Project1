@@ -187,7 +187,6 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 
 	for(i=0;i<length;i++){
 		Destack(&stack_buffer, &data);	
-		printk("Data is %c",data);
 		device_buf[i] = data;
 		printk("Read data sequence [%d] : %c", i, device_buf[i]);
 	} 
@@ -223,7 +222,7 @@ ssize_t dummy_write(struct file *file, const char *buffer, size_t length, loff_t
 	}
 
 	for(i=0;i<length;i++){
-    	Instack(&stack_buffer, *device_buf);
+    	Instack(&stack_buffer, *(device_buf+i));
 		printk("Write data sequence [%d] : %c", i, device_buf[i]);
 	} 
 	
