@@ -181,7 +181,7 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	if(IsEmpty(&stack_buffer)) return -2;
 
 	for(i=0;i<length;i++){
-		Destack(&stack_buffer, device_buf);	
+		Destack(&stack_buffer, *device_buf);	
 		printk("Read data sequence [%d] : %c", i, device_buf[i]);
 	} 
 
