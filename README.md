@@ -50,3 +50,32 @@ buffer: 이 변수는 사용자 공간의 메모리 주소를 가리킵니다. d
 4. 디바이스 파일: 이 드라이버는 /dev 디렉토리에 디바이스 파일을 생성하지 않기 때문에 사용자는 mknod 명령어를 사용해 디바이스 파일을 수동으로 생성해야 한다.
   - 디바이스 드라이버를 사용하는 디바이스를 파일 형태로 만들고, 드라이버를 커널에 적재한 후 application으로 디바이스에 접근하는 방식이다.
   - 즉, 소스파일들을 컴파일 하고 디바이스 파일을 만든 후, 드라이버를 커널에 적재하고(insmod), dmesg로 여러 커널 메시지를 확인한 후 application을 동작하면 된다.
+
+### Makefile
+```
+# Makefile
+
+# For the kernel module
+obj-m += dummy_driver.o
+KDIR := /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
+
+# For the user space application
+CC := gcc
+CFLAGS := -Wall
+TARGET_APP := application
+SRC_APP := application.c
+
+# Default target
+all: dummy_driver application
+
+dummy_driver:
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
+
+application: $(SRC_APP)
+	$(CC) $(CFLAGS) -o $(TARGET_APP) $(SRC_APP)
+
+clean:
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
+	rm -f $(TARGET_APP)
+```
