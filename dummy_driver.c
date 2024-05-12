@@ -90,7 +90,7 @@ static inline int IsEmpty(ST_t *s)
 int Instack(ST_t *s, char value)
 {
 	if (s == NULL) return -1;
-	if (value == NULL)	return -3;
+	if (*value == NULL)	return -3;
 	if (s->head >= STACK_SIZE -1) return -2;
 	
 	s->item[++s->head] = value;
@@ -177,7 +177,7 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 		return -ENOMEM;
 
 	// Implementing using IsEmpty, copy_to_user, and Destack functions
-	if(IsEmpty()) return -2;
+	if(IsEmpty(&stack_buffer)) return -2;
 
 	Destack(&stack_buffer, device_buf);	
 
@@ -205,10 +205,10 @@ ssize_t dummy_write(struct file *file, const char *buffer, size_t length, loff_t
     if (copy_from_user(device_buf, buffer, length)) 
         return -1; 
 
-	if (IsFull()) 
+	if (IsFull(&stack_buffer)) 
 			return -2;
 
-    Instack(&stack_buffer, device_buf); 
+    Instack(&stack_buffer, *device_buf); 
 	
 	return 0;
 }
