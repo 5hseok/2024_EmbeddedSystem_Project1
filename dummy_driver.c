@@ -1,12 +1,12 @@
-// #include <linux/module.h>
-// #include <linux/string.h>
-// #include <linux/fs.h>
-// #include <linux/cdev.h>
-// #include <linux/semaphore.h>
-// #include <linux/slab.h>
-// #include <asm/uaccess.h>
-#include <stdio.h>
-#include <fcntl.h>
+#include <linux/module.h>
+#include <linux/string.h>
+#include <linux/fs.h>
+#include <linux/cdev.h>
+#include <linux/semaphore.h>
+#include <linux/slab.h>
+#include <asm/uaccess.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
 
 #define DUMMY_MAJOR_NUMBER 250
