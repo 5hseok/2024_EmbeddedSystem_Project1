@@ -171,7 +171,7 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	int i;
 	char data;
 
-	printk("Dummy Driver : Here is Read Call, Stack index[%d]\n", stack_buffer.tail);
+	printk("Dummy Driver : Here is Read Call, Stack index[%d]\n", stack_buffer.head);
 	
 	if (device_buf != NULL)
 		kfree(device_buf);
@@ -188,7 +188,7 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	for(i=0;i<length;i++){
 		Destack(&stack_buffer, &data);	
 		device_buf[i] = data;
-		printk("Read data sequence [%d] : %c", i, device_buf[i]);
+		printk("Read data sequence [%d,%d] : %c", i, stack_buffer.head, device_buf[i]);
 	} 
 
 	if (copy_to_user(buffer, device_buf, length))	return -1;
