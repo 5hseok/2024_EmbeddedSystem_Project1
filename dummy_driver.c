@@ -190,8 +190,7 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 		// Destack 실패 처리 (예: 스택이 비었음)
 			break;
 		}
-		// Destack(&stack_buffer, device_buf);	
-		// printk("Read data sequence [%d] : %c", i, device_buf[i]);
+
 	} 
 
 	if (copy_to_user(buffer, device_buf, length))	return -1;
