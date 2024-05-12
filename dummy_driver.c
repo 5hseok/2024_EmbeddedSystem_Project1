@@ -186,12 +186,8 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	}
 
 	for(i=0;i<length;i++){
-		if(Destack(&stack_buffer, &data)) { // Destack 함수가 data에 값을 저장하고 성공하면 0을 반환하도록 가정
-			printk("Read data sequence [%d] : %c", i, data);
-			device_buf[i] = data; // 여기서 data 값을 device_buf[i]에 저장
-		} else {
-			break;
-		}
+		Destack(&stack_buffer, device_buf);	
+		printk("Read data sequence [%d] : %c", i, device_buf[i]);
 	} 
 
 	if (copy_to_user(buffer, device_buf, length))	return -1;
