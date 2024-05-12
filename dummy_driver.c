@@ -214,7 +214,7 @@ ssize_t dummy_write(struct file *file, const char *buffer, size_t length, loff_t
 	}
 	for(int i=0;i<length;i++){
     	Instack(&stack_buffer, *device_buf);
-		printk("Write data sequence [%d] : %s", i, device_buf[i]);
+		printk("Write data sequence [%d] : %c", i, device_buf[i]);
 	} 
 	
 	return 0;
