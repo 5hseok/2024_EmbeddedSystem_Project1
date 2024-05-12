@@ -2,7 +2,11 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+<<<<<<< HEAD
 #include <string.h>
+=======
+#include <errno.h>
+>>>>>>> 0d617523038b7c492a0c5db85b887038c6732b83
 
 int main(void)
 {
