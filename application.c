@@ -29,8 +29,8 @@ int main(void)
         return -1;
     }
 
-    // Ensure null termination
-    rbuf[bytes_read] = '\0';
+    // // Ensure null termination
+    // rbuf[bytes_read] = '\0';
 
     // Print the read content
     printf("Read from device: %s\n", rbuf);
