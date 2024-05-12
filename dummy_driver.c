@@ -179,7 +179,7 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	// Implementing using IsEmpty, copy_to_user, and Destack functions
 	if(IsEmpty()) return -2;
 
-	if (copy_to_user(buffer, device_buf, length))	return -EFAULT;
+	if (copy_to_user(buffer, device_buf, length))	return -1;
 
 	Destack(&stack_buffer, device_buf);	
 	return 0;
@@ -205,7 +205,7 @@ ssize_t dummy_write(struct file *file, const char *buffer, size_t length, loff_t
         return -2;
 
     if (copy_from_user(device_buf, buffer, length)) 
-        return -EFAULT; 
+        return -1; 
 
     Instack(); 
 	
