@@ -36,7 +36,8 @@ int main(void)
     // rbuf[bytes_read] = '\0';
 
     // Print the read content
-    printf("Read from device: %s\n", rbuf);
+    printf("Write data : %s\n", wbuf);
+    printf("Read data: %s\n", rbuf);
 
     // Close the device
     close(fd);
