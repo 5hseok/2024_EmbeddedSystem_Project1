@@ -178,8 +178,11 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 
 	// Implementing using IsEmpty, copy_to_user, and Destack functions
 	if(IsEmpty(&stack_buffer)) return -2;
-
-	Destack(&stack_buffer, device_buf);	
+	
+	for(int i=0;i<length;i++){
+		Destack(&stack_buffer, device_buf);	
+		printk("Read data sequence [%d] : %s", i, device_buf[i])
+	} 
 
 	if (copy_to_user(buffer, device_buf, length))	return -1;
 
@@ -209,8 +212,10 @@ ssize_t dummy_write(struct file *file, const char *buffer, size_t length, loff_t
 	if (IsFull(&stack_buffer)) {
 		return -2;
 	}
-
-    Instack(&stack_buffer, *device_buf); 
+	for(int i=0;i<length;i++){
+    	Instack(&stack_buffer, *device_buf);
+		printk("Write data sequence [%d] : %s", i, device_buf[i])
+	} 
 	
 	return 0;
 }
