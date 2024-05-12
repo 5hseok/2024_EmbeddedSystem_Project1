@@ -169,7 +169,7 @@ int dummy_open(struct inode *inode, struct file *file)
 ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offset)
 {	
 	int i;
-	char *data;
+	char data;
 
 	printk("Dummy Driver : Here is Read Call, Stack index[%d]\n", stack_buffer.tail);
 	
@@ -186,8 +186,8 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	}
 
 	for(i=0;i<length;i++){
-		Destack(&stack_buffer, data);	
-		device_buf[i]=*data;
+		Destack(&stack_buffer, &data);	
+		device_buf[i] = data;
 		printk("Read data sequence [%d] : %c", i, device_buf[i]);
 	} 
 
