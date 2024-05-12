@@ -104,8 +104,12 @@ int Instack(ST_t *s, char value)
 ***************************************************************/
 int Destack(ST_t *s, char *value)
 {
-	if(s == NULL) return -1;
-	if(s->head < 0) return -2;
+	if(s == NULL) {
+		return -1;
+	}
+	if(s->head < 0) {
+		return -2;
+	}
 
 	*value = s->item[s->head--];
 	return 0;
@@ -186,7 +190,9 @@ ssize_t dummy_read(struct file *file, char *buffer, size_t length, loff_t *offse
 	}
 
 	for(i=0;i<length;i++){
-		Destack(&stack_buffer, &data);	
+		if(Destack(&stack_buffer, &data)<0){
+			break;
+		}	
 		device_buf[i] = data;
 		printk("Read data sequence [%d] : %c", i, device_buf[i]);
 	} 
