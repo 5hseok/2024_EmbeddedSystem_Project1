@@ -5,8 +5,6 @@
 #include <linux/semaphore.h>
 #include <linux/slab.h>
 #include <asm/uaccess.h>
-// #include <stdio.h>
-// #include <fcntl.h>
 
 
 #define DUMMY_MAJOR_NUMBER 250
